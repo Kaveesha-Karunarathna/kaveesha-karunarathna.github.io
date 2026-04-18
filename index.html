@@ -3,54 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaveesha Karunarathna</title>
+    <title>KAVEESHA KARUNARATHNA | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --bg-color: #000000; /* Pure space black */
+            --text-primary: #FFFFFF;
+            --text-secondary: #AAAAAA; /* For your title gradient */
+            --animation-cursor: #AAAAAA;
+        }
+
         body, html {
             margin: 0;
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Keeps the focus on the animation */
-            background-color: #050505; /* Deep space black */
+            overflow: hidden; /* Lock the screen for the effect */
+            background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
-            color: white;
+            color: var(--text-primary);
         }
 
-        /* The canvas container for the stars */
+        /* 1. The Interactive Star Canvas */
         #tsparticles {
             position: absolute;
             width: 100%;
             height: 100%;
-            z-index: 1;
+            top: 0;
+            left: 0;
+            z-index: 1; /* Background layer */
         }
 
-        /* Content Overlay */
+        /* 2. Text Content Overlay */
         .content {
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Sits above the stars */
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             text-align: center;
-            pointer-events: none; /* Allows mouse to pass through to the stars */
+            /* CRITICAL: Mouse events pass through content to stars */
+            pointer-events: none; 
         }
 
+        /* Main Headline (Keep the gradient from your design) */
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem; /* Match your image scale */
             margin: 0;
-            letter-spacing: -2px;
-            background: linear-gradient(to right, #fff, #888);
+            margin-bottom: 10px;
+            letter-spacing: -1.5px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        p {
-            font-size: 1.2rem;
-            opacity: 0.7;
+        /* Sub-Headline (The Typing Text Container) */
+        .typewriter-container {
+            font-size: 1rem; /* Match image subtext */
+            color: var(--text-secondary);
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        /* The animated cursor that blinks */
+        .cursor {
+            color: var(--animation-cursor);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -60,39 +85,73 @@
 
     <div class="content">
         <h1>KAVEESHA KARUNARATHNA</h1>
-        <p>Creative Developer | Space Enthusiast</p>
+        
+        <div class="typewriter-container">
+            <span id="typed-text"></span><span class="cursor">|</span>
+        </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-stars@3.0.2/tsparticles.preset.stars.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.3/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
+        // === PART 1: The Typed Text Effect ===
+        // We do this first so it feels responsive.
+        document.addEventListener("DOMContentLoaded", () => {
+            const textToType = "Creative Developer | Space Enthusiast"; // Text from image_0.png
+            const typedTextElement = document.getElementById("typed-text");
+            let index = 0;
+
+            function typeWriter() {
+                if (index < textToType.length) {
+                    typedTextElement.innerHTML += textToType.charAt(index);
+                    index++;
+                    // Speed: 100ms per character
+                    setTimeout(typeWriter, 100); 
+                }
+            }
+            typeWriter();
+        });
+
+        // === PART 2: The Interactive Starfield (tsParticles) ===
         tsParticles.load("tsparticles", {
-            preset: "stars",
+            fpsLimit: 60,
             background: {
-                color: "#050505"
+                color: "#000000" // Pure space black
             },
             particles: {
-                number: { value: 150 },
-                size: { value: 2 },
+                number: { value: 160 }, // Density of stars
+                color: { value: "#ffffff" },
+                shape: { type: "circle" },
+                opacity: {
+                    value: { min: 0.2, max: 0.8 } // Varies star brightness
+                },
+                size: {
+                    value: { min: 1, max: 3 } // Varies star size
+                },
                 move: {
                     enable: true,
-                    speed: 0.5,
-                    outModes: "out"
+                    speed: 0.4, // Slow, elegant ambient movement
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    outModes: { default: "out" },
                 }
             },
             interactivity: {
                 events: {
                     onHover: {
                         enable: true,
-                        mode: "grab" // Stars will connect to your mouse
+                        mode: "grab" // CRITICAL: Stars connect to your mouse
+                    },
+                    onClick: {
+                        enable: true,
+                        mode: "push" // Clicks add temporary stars
                     }
                 },
                 modes: {
                     grab: {
-                        distance: 200,
-                        links: { opacity: 0.5 }
+                        distance: 180, // Distance mouse pulls particles
+                        links: { opacity: 0.5 } // Visibility of the connecting lines
                     }
                 }
             }
