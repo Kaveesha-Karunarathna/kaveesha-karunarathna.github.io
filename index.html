@@ -44,11 +44,10 @@
             height: 100vh;
             text-align: center;
             pointer-events: none; 
-            padding: 0 20px; /* Adds a little safety space for mobile edges */
+            padding: 0 20px; 
         }
 
         h1 {
-            /* Responsive Font Logic */
             font-size: 8vw; 
             margin: 0;
             margin-bottom: 10px;
@@ -56,11 +55,9 @@
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            /* Prevents text from being too tiny or too huge */
             min-height: 1.2em; 
         }
 
-        /* Responsive cap for desktop screens */
         @media (min-width: 1024px) {
             h1 { font-size: 3.5rem; }
         }
@@ -114,9 +111,8 @@
                 if (nIndex < nameToType.length) {
                     nameElement.innerHTML += nameToType.charAt(nIndex);
                     nIndex++;
-                    setTimeout(typeName, 80); // Typing speed for name
+                    setTimeout(typeName, 80);
                 } else {
-                    // Wait a moment after name is done, then type subline
                     setTimeout(typeSubline, 500);
                 }
             }
@@ -125,14 +121,14 @@
                 if (sIndex < sublineToType.length) {
                     sublineElement.innerHTML += sublineToType.charAt(sIndex);
                     sIndex++;
-                    setTimeout(typeSubline, 50); // Slightly faster for subline
+                    setTimeout(typeSubline, 50);
                 }
             }
 
-            typeName(); // Kick off the animation
+            typeName();
         });
 
-        // === STARFIELD BACKGROUND ===
+        // === STARFIELD BACKGROUND WITH GYROSCOPE ===
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
             background: { color: "#000000" },
@@ -152,13 +148,21 @@
             interactivity: {
                 events: {
                     onHover: { enable: true, mode: "grab" },
-                    onClick: { enable: true, mode: "push" }
+                    onClick: { enable: true, mode: "push" },
+                    resize: true
                 },
                 modes: {
                     grab: {
                         distance: 180,
                         links: { opacity: 0.4 }
                     }
+                }
+            },
+            // THE GYRO FIX:
+            sensors: {
+                deviceOrientation: {
+                    enable: true,
+                    value: 10 // This controls how much the stars react to the tilt
                 }
             }
         });
