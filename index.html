@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Professional Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden; /* Keeps the focus on the animation */
+            background-color: #050505; /* Deep space black */
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        /* The canvas container for the stars */
+        #tsparticles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        /* Content Overlay */
+        .content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+            pointer-events: none; /* Allows mouse to pass through to the stars */
+        }
+
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            font-size: 1.2rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="tsparticles"></div>
+
+    <div class="content">
+        <h1>YOUR NAME</h1>
+        <p>Creative Developer | Space Enthusiast</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles-confetti@2.12.0/tsparticles.confetti.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/preset-stars@3.0.2/tsparticles.preset.stars.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.0.3/tsparticles.bundle.min.js"></script>
+
+    <script>
+        tsParticles.load("tsparticles", {
+            preset: "stars",
+            background: {
+                color: "#050505"
+            },
+            particles: {
+                number: { value: 150 },
+                size: { value: 2 },
+                move: {
+                    enable: true,
+                    speed: 0.5,
+                    outModes: "out"
+                }
+            },
+            interactivity: {
+                events: {
+                    onHover: {
+                        enable: true,
+                        mode: "grab" // Stars will connect to your mouse
+                    }
+                },
+                modes: {
+                    grab: {
+                        distance: 200,
+                        links: { opacity: 0.5 }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
