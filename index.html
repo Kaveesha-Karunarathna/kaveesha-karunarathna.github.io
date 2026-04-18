@@ -8,9 +8,9 @@
     
     <style>
         :root {
-            --bg-color: #000000; /* Pure space black */
+            --bg-color: #000000;
             --text-primary: #FFFFFF;
-            --text-secondary: #AAAAAA; /* For your title gradient */
+            --text-secondary: #AAAAAA;
             --animation-cursor: #AAAAAA;
         }
 
@@ -19,59 +19,64 @@
             padding: 0;
             width: 100%;
             height: 100%;
-            overflow: hidden; /* Lock the screen for the effect */
+            overflow: hidden;
             background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
         }
 
-        /* 1. The Interactive Star Canvas */
         #tsparticles {
             position: absolute;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 1; /* Background layer */
+            z-index: 1;
         }
 
-        /* 2. Text Content Overlay */
         .content {
             position: relative;
-            z-index: 2; /* Sits above the stars */
+            z-index: 2;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             text-align: center;
-            /* CRITICAL: Mouse events pass through content to stars */
             pointer-events: none; 
+            padding: 0 20px; /* Adds a little safety space for mobile edges */
         }
 
-        /* Main Headline (Keep the gradient from your design) */
         h1 {
-            font-size: 3.5rem; /* Match your image scale */
+            /* Responsive Font Logic */
+            font-size: 8vw; 
             margin: 0;
             margin-bottom: 10px;
             letter-spacing: -1.5px;
             background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            /* Prevents text from being too tiny or too huge */
+            min-height: 1.2em; 
         }
 
-        /* Sub-Headline (The Typing Text Container) */
+        /* Responsive cap for desktop screens */
+        @media (min-width: 1024px) {
+            h1 { font-size: 3.5rem; }
+        }
+
         .typewriter-container {
-            font-size: 1rem; /* Match image subtext */
+            font-size: 1.1rem;
             color: var(--text-secondary);
             font-weight: 300;
             opacity: 0.9;
+            min-height: 1.5em;
         }
 
-        /* The animated cursor that blinks */
         .cursor {
             color: var(--animation-cursor);
             animation: blink 0.8s infinite;
+            font-weight: bold;
         }
 
         @keyframes blink {
@@ -84,7 +89,7 @@
     <div id="tsparticles"></div>
 
     <div class="content">
-        <h1>KAVEESHA KARUNARATHNA</h1>
+        <h1 id="typed-name"></h1>
         
         <div class="typewriter-container">
             <span id="typed-text"></span><span class="cursor">|</span>
@@ -94,64 +99,65 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
-        // === PART 1: The Typed Text Effect ===
-        // We do this first so it feels responsive.
+        // === SEQUENTIAL TYPEWRITER EFFECT ===
         document.addEventListener("DOMContentLoaded", () => {
-            const textToType = "Creative Developer | Space Enthusiast"; // Text from image_0.png
-            const typedTextElement = document.getElementById("typed-text");
-            let index = 0;
+            const nameToType = "KAVEESHA KARUNARATHNA";
+            const sublineToType = "Creative Developer | Space Enthusiast";
+            
+            const nameElement = document.getElementById("typed-name");
+            const sublineElement = document.getElementById("typed-text");
+            
+            let nIndex = 0;
+            let sIndex = 0;
 
-            function typeWriter() {
-                if (index < textToType.length) {
-                    typedTextElement.innerHTML += textToType.charAt(index);
-                    index++;
-                    // Speed: 100ms per character
-                    setTimeout(typeWriter, 100); 
+            function typeName() {
+                if (nIndex < nameToType.length) {
+                    nameElement.innerHTML += nameToType.charAt(nIndex);
+                    nIndex++;
+                    setTimeout(typeName, 80); // Typing speed for name
+                } else {
+                    // Wait a moment after name is done, then type subline
+                    setTimeout(typeSubline, 500);
                 }
             }
-            typeWriter();
+
+            function typeSubline() {
+                if (sIndex < sublineToType.length) {
+                    sublineElement.innerHTML += sublineToType.charAt(sIndex);
+                    sIndex++;
+                    setTimeout(typeSubline, 50); // Slightly faster for subline
+                }
+            }
+
+            typeName(); // Kick off the animation
         });
 
-        // === PART 2: The Interactive Starfield (tsParticles) ===
+        // === STARFIELD BACKGROUND ===
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
-            background: {
-                color: "#000000" // Pure space black
-            },
+            background: { color: "#000000" },
             particles: {
-                number: { value: 160 }, // Density of stars
+                number: { value: 160 },
                 color: { value: "#ffffff" },
                 shape: { type: "circle" },
-                opacity: {
-                    value: { min: 0.2, max: 0.8 } // Varies star brightness
-                },
-                size: {
-                    value: { min: 1, max: 3 } // Varies star size
-                },
+                opacity: { value: { min: 0.2, max: 0.8 } },
+                size: { value: { min: 1, max: 3 } },
                 move: {
                     enable: true,
-                    speed: 0.4, // Slow, elegant ambient movement
+                    speed: 0.4,
                     direction: "none",
-                    random: false,
-                    straight: false,
                     outModes: { default: "out" },
                 }
             },
             interactivity: {
                 events: {
-                    onHover: {
-                        enable: true,
-                        mode: "grab" // CRITICAL: Stars connect to your mouse
-                    },
-                    onClick: {
-                        enable: true,
-                        mode: "push" // Clicks add temporary stars
-                    }
+                    onHover: { enable: true, mode: "grab" },
+                    onClick: { enable: true, mode: "push" }
                 },
                 modes: {
                     grab: {
-                        distance: 180, // Distance mouse pulls particles
-                        links: { opacity: 0.5 } // Visibility of the connecting lines
+                        distance: 180,
+                        links: { opacity: 0.4 }
                     }
                 }
             }
