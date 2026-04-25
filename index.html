@@ -11,12 +11,14 @@
             --bg-color: #000000;
             --text-primary: #FFFFFF;
             --text-secondary: #AAAAAA;
-            --accent-color: #3498db;
-            --glass: rgba(255, 255, 255, 0.05);
+            /* Apple Liquid Glass Effect */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.12);
+            --glass-blur: blur(20px);
         }
 
-        /* Essential Reset */
         * { box-sizing: border-box; }
+
         body, html {
             margin: 0;
             padding: 0;
@@ -25,21 +27,21 @@
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
             scroll-behavior: smooth;
-            /* ROCKET CURSOR */
-            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='24'>🚀</text></svg>"), auto;
+            /* Back to original standard cursor */
+            cursor: auto; 
         }
 
-        /* Fixed Space Background */
+        /* Particles stay fixed in the background while scrolling */
         #tsparticles {
             position: fixed;
             width: 100%;
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -1; /* Behind everything */
+            z-index: 1;
         }
 
-        /* Navigation */
+        /* Navigation Glass Bar */
         nav {
             position: fixed;
             top: 0;
@@ -49,122 +51,146 @@
             justify-content: center;
             gap: 30px;
             z-index: 100;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--glass-border);
         }
+
         nav a {
             color: white;
             text-decoration: none;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             text-transform: uppercase;
             letter-spacing: 2px;
+            opacity: 0.7;
             transition: 0.3s;
         }
-        nav a:hover { color: var(--accent-color); }
 
-        /* Section Layout */
+        nav a:hover { opacity: 1; }
+
+        /* Main Content Container */
+        main {
+            position: relative;
+            z-index: 2; /* Sits above particles */
+        }
+
         section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px;
-            text-align: center;
+            padding: 100px 20px;
         }
 
-        /* Welcome Section */
+        /* Hero Text */
         .hero h1 {
             font-size: 8vw;
             margin: 0;
             background: linear-gradient(135deg, #fff 0%, #888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-align: center;
         }
+
         @media (min-width: 1024px) { .hero h1 { font-size: 4rem; } }
 
-        /* Content Cards (Glassmorphism) */
-        .card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255,255,255,0.1);
+        /* Liquid Glass Card Style (Apple Style) */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur); /* Safari Support */
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             padding: 40px;
-            border-radius: 20px;
             max-width: 800px;
             width: 100%;
-            margin-top: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
+            text-align: left;
         }
 
-        .project-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 1000px;
-        }
+        h2 { font-size: 2.5rem; margin-top: 0; letter-spacing: -1px; }
+        p { line-height: 1.7; color: var(--text-secondary); font-size: 1.1rem; }
 
-        .project-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px;
-            border-radius: 15px;
-            transition: 0.3s;
+        .typewriter-container {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            text-align: center;
         }
-        .project-item:hover { transform: translateY(-10px); background: rgba(255,255,255,0.08); }
-
-        h2 { font-size: 2.5rem; margin-bottom: 20px; letter-spacing: -1px; }
-        p { line-height: 1.6; color: var(--text-secondary); }
 
         .cursor { animation: blink 0.8s infinite; font-weight: bold; }
         @keyframes blink { 50% { opacity: 0; } }
+
+        /* Project Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .project-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 18px;
+            transition: 0.4s ease;
+        }
+
+        .project-box:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-5px);
+        }
     </style>
 </head>
 <body>
 
+    <div id="tsparticles"></div>
+
     <nav>
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#projects">Projects</a>
+        <a href="#projects">Work</a>
     </nav>
 
-    <div id="tsparticles"></div>
-
-    <section id="home" class="hero">
-        <h1 id="typed-name"></h1>
-        <div class="typewriter-container">
-            <span id="typed-text"></span><span class="cursor">|</span>
-        </div>
-    </section>
-
-    <section id="about">
-        <div class="card">
-            <h2>About Me</h2>
-            <p>I am a passionate developer focused on creating immersive digital experiences. I love the intersection of art and code, which is why I build interactive environments like this space-themed portfolio.</p>
-        </div>
-    </section>
-
-    <section id="projects">
-        <h2>My Work</h2>
-        <div class="project-grid">
-            <div class="project-item">
-                <h3>Space Engine</h3>
-                <p>An interactive starfield rendered with Canvas API.</p>
+    <main>
+        <section id="home" class="hero">
+            <h1 id="typed-name"></h1>
+            <div class="typewriter-container">
+                <span id="typed-text"></span><span class="cursor">|</span>
             </div>
-            <div class="project-item">
-                <h3>Portfolio v1</h3>
-                <p>My first professional portfolio hosted on GitHub Pages.</p>
+        </section>
+
+        <section id="about">
+            <div class="glass-card">
+                <h2>About</h2>
+                <p>Focused on high-performance development and immersive UI. I build digital environments that respond to user interaction, blending clean aesthetics with interactive motion.</p>
             </div>
-            <div class="project-item">
-                <h3>Gyro-UI</h3>
-                <p>A mobile interface that responds to device tilting.</p>
+        </section>
+
+        <section id="projects">
+            <div class="glass-card">
+                <h2>Selected Work</h2>
+                <div class="grid">
+                    <div class="project-box">
+                        <h3>Interactive Space</h3>
+                        <p>A starfield engine using Canvas and hardware sensors.</p>
+                    </div>
+                    <div class="project-box">
+                        <h3>Fluid UI</h3>
+                        <p>Apple-inspired frosted glass interfaces for modern web.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
-        // TYPEWRITER LOGIC
+        // TYPEWRITER EFFECT
         document.addEventListener("DOMContentLoaded", () => {
             const nameToType = "KAVEESHA KARUNARATHNA";
             const sublineToType = "Creative Developer | Space Enthusiast";
@@ -189,7 +215,7 @@
             typeName();
         });
 
-        // TSPARTICLES LOGIC
+        // ORIGINAL PARTICLES + GYROSCOPE
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
             background: { color: "#000000" },
@@ -197,9 +223,14 @@
                 number: { value: 160 },
                 color: { value: "#ffffff" },
                 shape: { type: "circle" },
-                opacity: { value: { min: 0.1, max: 0.6 } },
-                size: { value: { min: 1, max: 2 } },
-                move: { enable: true, speed: 0.4, direction: "none", outModes: "out" }
+                opacity: { value: { min: 0.2, max: 0.8 } },
+                size: { value: { min: 1, max: 3 } },
+                move: {
+                    enable: true,
+                    speed: 0.4,
+                    direction: "none",
+                    outModes: { default: "out" },
+                }
             },
             interactivity: {
                 events: {
@@ -208,10 +239,18 @@
                     resize: true
                 },
                 modes: {
-                    grab: { distance: 180, links: { opacity: 0.4 } }
+                    grab: {
+                        distance: 180,
+                        links: { opacity: 0.4 }
+                    }
                 }
             },
-            sensors: { deviceOrientation: { enable: true, value: 10 } }
+            sensors: {
+                deviceOrientation: {
+                    enable: true,
+                    value: 10 
+                }
+            }
         });
     </script>
 </body>
