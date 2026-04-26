@@ -11,11 +11,14 @@
             --bg-color: #000000;
             --text-primary: #FFFFFF;
             --text-secondary: #AAAAAA;
-            /* 3D Liquid Glass Variables */
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --glass-blur: blur(25px);
-            --glass-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 30px rgba(0,0,0,0.5);
+            /* Ultra-Realistic 3D Liquid Glass */
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.18);
+            --glass-blur: blur(30px);
+            --glass-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.3),
+                inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+                0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,7 +31,6 @@
             color: var(--text-primary);
             scroll-behavior: smooth;
             overflow-x: hidden;
-            cursor: auto; 
         }
 
         #tsparticles {
@@ -38,7 +40,7 @@
             z-index: 1;
         }
 
-        /* Responsive Navigation */
+        /* Navigation */
         nav {
             position: fixed;
             top: 15px;
@@ -62,36 +64,42 @@
             border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow);
             transition: 0.3s ease;
+            cursor: pointer;
             display: flex;
             align-items: center;
         }
 
-        /* Dropdown Logic */
-        .dropdown { position: relative; display: inline-block; }
+        .nav-item:hover { background: rgba(255, 255, 255, 0.1); }
+
+        /* Stable Click Dropdown */
+        .dropdown { position: relative; }
         .dropdown-content {
             display: none;
             position: absolute;
             right: 0;
-            top: 45px;
-            min-width: 140px;
-            background: rgba(10, 10, 10, 0.8);
+            top: 50px;
+            min-width: 160px;
+            background: rgba(10, 10, 10, 0.7);
             backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--glass-shadow);
         }
+        
+        /* Show when active class is added via JS */
+        .dropdown-content.show { display: block; }
+
         .dropdown-content a {
             color: white;
-            padding: 12px 16px;
+            padding: 14px 20px;
             text-decoration: none;
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             transition: 0.3s;
         }
-        .dropdown-content a:hover { background: rgba(255,255,255,0.1); }
-        .dropdown:hover .dropdown-content { display: block; }
-        .dropdown:hover .nav-item { background: rgba(255,255,255,0.15); }
+        .dropdown-content a:hover { background: rgba(255, 255, 255, 0.1); }
 
         main { position: relative; z-index: 2; width: 100%; }
 
@@ -101,73 +109,54 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
         }
 
-        /* Mobile Responsive Hero */
         .hero h1 {
-            font-size: 10vw; 
+            font-size: 12vw; 
             background: linear-gradient(135deg, #fff 0%, #888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
             line-height: 1.1;
         }
-        .typewriter-container {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-top: 15px;
-            text-align: center;
-            max-width: 80%;
-        }
 
         @media (min-width: 768px) {
-            .hero h1 { font-size: 4rem; }
-            .typewriter-container { font-size: 1.2rem; }
+            .hero h1 { font-size: 5rem; }
             nav { top: 25px; right: 25px; gap: 15px; }
         }
 
-        /* 3D Liquid Glass Card */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            padding: 30px;
+            border-radius: 32px;
+            padding: 40px;
             max-width: 800px;
             width: 100%;
             box-shadow: var(--glass-shadow);
             position: relative;
-            overflow: hidden;
         }
-        /* Glossy Highlight Effect */
-        .glass-card::before {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 50%;
-            background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
-            pointer-events: none;
-        }
-
-        h2 { font-size: 1.8rem; margin-bottom: 15px; }
-        p { line-height: 1.6; color: var(--text-secondary); font-size: 1rem; }
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 15px;
-            margin-top: 25px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
-        .project-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            border-radius: 20px;
-            transition: 0.3s ease;
-        }
-        .project-box:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); }
 
+        .project-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            padding: 25px;
+            border-radius: 24px;
+            transition: 0.4s ease;
+        }
+
+        .project-box:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.08); }
+
+        .typewriter-container { font-size: 1rem; color: var(--text-secondary); margin-top: 20px; }
         .cursor { animation: blink 0.8s infinite; font-weight: bold; }
         @keyframes blink { 50% { opacity: 0; } }
 
@@ -182,8 +171,8 @@
         <a href="#about" class="nav-item">About</a>
         <a href="#projects" class="nav-item">Work</a>
         <div class="dropdown">
-            <div class="nav-item">More ▾</div>
-            <div class="dropdown-content">
+            <div class="nav-item" id="moreBtn">More ▾</div>
+            <div class="dropdown-content" id="moreDropdown">
                 <a href="#contact">Contact Me</a>
                 <a href="#faq">FAQ</a>
                 <a href="#notes">Notes</a>
@@ -202,51 +191,42 @@
         <section id="about">
             <div class="glass-card">
                 <h2>Hi!, I'm Kaveesha</h2>
-                <p>Product Engineer (HAI) & Creative Technologist. I architect the logic and build the interfaces where human intent meets AI. Focused on shipping high-performance, agentic environments.</p>
+                <p>Product Engineer (HAI) & Creative Technologist. I architect the logic and build the interfaces where human intent meets AI.</p>
             </div>
         </section>
 
         <section id="projects">
             <div class="glass-card">
-                <h2>Work</h2>
+                <h2>Selected Work</h2>
                 <div class="grid">
-                    <div class="project-box">
-                        <h3>Interactive Space</h3>
-                        <p>Starfield engine using Canvas API.</p>
-                    </div>
-                    <div class="project-box">
-                        <h3>Liquid UI</h3>
-                        <p>Realistic frosted glass interfaces.</p>
-                    </div>
+                    <div class="project-box"><h3>Interactive Space</h3><p>Starfield engine.</p></div>
+                    <div class="project-box"><h3>Liquid UI</h3><p>Frosted interfaces.</p></div>
                 </div>
             </div>
         </section>
 
-        <section id="contact">
-            <div class="glass-card">
-                <h2>Contact</h2>
-                <p>Collaborate on agentic systems or high-performance interfaces. Connect with me.</p>
-            </div>
-        </section>
-
-        <section id="faq">
-            <div class="glass-card">
-                <h2>FAQ</h2>
-                <p>Common questions regarding HAI engineering and creative tech production.</p>
-            </div>
-        </section>
-
-        <section id="notes">
-            <div class="glass-card">
-                <h2>Notes</h2>
-                <p>Insights on the intersection of AI architecture and modern design.</p>
-            </div>
-        </section>
+        <section id="contact"><div class="glass-card"><h2>Contact</h2><p>Let's build together.</p></div></section>
+        <section id="faq"><div class="glass-card"><h2>FAQ</h2><p>Common inquiries.</p></div></section>
+        <section id="notes"><div class="glass-card"><h2>Notes</h2><p>Technical logs.</p></div></section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
+        // TOGGLE DROPDOWN ON CLICK
+        const moreBtn = document.getElementById('moreBtn');
+        const moreDropdown = document.getElementById('moreDropdown');
+
+        moreBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            moreDropdown.classList.toggle('show');
+        });
+
+        document.addEventListener('click', () => {
+            moreDropdown.classList.remove('show');
+        });
+
+        // TYPEWRITER
         document.addEventListener("DOMContentLoaded", () => {
             const nameToType = "KAVEESHA KARUNARATHNA";
             const sublineToType = "Product Engineer (HAI) | Creative Technologist";
@@ -271,33 +251,37 @@
             typeName();
         });
 
+        // PARTICLES: REPULSE MODE (Clearing the road)
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
             background: { color: "#000000" },
             particles: {
-                number: { value: 160 },
+                number: { value: 140, density: { enable: true, area: 800 } },
                 color: { value: "#ffffff" },
                 shape: { type: "circle" },
-                opacity: { value: { min: 0.2, max: 0.8 } },
+                opacity: { value: { min: 0.1, max: 0.6 } },
                 size: { value: { min: 1, max: 3 } },
                 move: {
                     enable: true,
-                    speed: 0.4,
-                    direction: "none",
+                    speed: 0.5,
                     outModes: { default: "out" },
                 }
             },
             interactivity: {
                 events: {
-                    onHover: { enable: true, mode: "grab" },
-                    onClick: { enable: true, mode: "push" },
+                    onHover: { 
+                        enable: true, 
+                        mode: "repulse" // Push particles away
+                    },
                     resize: true
                 },
                 modes: {
-                    grab: { distance: 180, links: { opacity: 0.4 } }
+                    repulse: {
+                        distance: 120, // Distance to push away
+                        duration: 0.4
+                    }
                 }
-            },
-            sensors: { deviceOrientation: { enable: true, value: 10 } }
+            }
         });
     </script>
 </body>
