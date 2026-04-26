@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KAVEESHA KARUNARATHNA | Portfolio</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
     <style>
         :root {
@@ -35,9 +36,8 @@
             text-decoration: none; color: #fff; font-size: 0.7rem; font-weight: 700;
             text-transform: uppercase; letter-spacing: 2px; padding: 12px 25px;
             border-radius: 100px; background: var(--glass); backdrop-filter: var(--blur);
-            -webkit-backdrop-filter: var(--blur); border: 1px solid var(--border);
-            box-shadow: var(--shadow); transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            cursor: pointer;
+            border: 1px solid var(--border); box-shadow: var(--shadow); 
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer;
         }
 
         .nav-item:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-3px); border-color: #fff; }
@@ -54,24 +54,16 @@
 
         /* --- MAIN LAYOUT --- */
         main { position: relative; z-index: 1; width: 100%; }
-
         section {
-            display: none; min-height: 160vh; /* Scroll for reveal */
-            flex-direction: column; align-items: center; justify-content: flex-start;
+            display: none; min-height: 160vh; flex-direction: column; 
+            align-items: center; justify-content: flex-start;
             padding: 30vh 20px 10vh; animation: sectionFade 1s ease;
         }
 
         @keyframes sectionFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .content-center {
-            flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 800; letter-spacing: -3px;
-            text-align: center; margin-bottom: 20px; line-height: 1;
-        }
-
+        .content-center { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .hero-title { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 800; letter-spacing: -3px; text-align: center; margin-bottom: 20px; line-height: 1; }
         .sub-title { font-size: 1.1rem; color: var(--secondary); text-align: center; }
 
         /* --- PROFESSIONAL FOOTER --- */
@@ -81,7 +73,14 @@
             display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
         }
 
+        .footer-brand { display: flex; align-items: center; gap: 15px; }
+        .footer-photo {
+            width: 50px; height: 50px; border-radius: 50%; 
+            object-fit: cover; border: 1px solid var(--border);
+            background: #222;
+        }
         .footer-logo { font-size: 1.5rem; font-weight: 800; letter-spacing: -1px; }
+
         .footer-col h4 { font-size: 0.65rem; color: var(--secondary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
         .footer-col a { display: block; color: var(--primary); text-decoration: none; font-size: 0.85rem; margin-bottom: 12px; transition: 0.3s; opacity: 0.7; }
         .footer-col a:hover { opacity: 1; transform: translateX(5px); }
@@ -92,17 +91,15 @@
         }
 
         .social-icons { display: flex; gap: 20px; }
-        .social-icons a { color: var(--secondary); text-decoration: none; font-size: 0.75rem; font-weight: 700; transition: 0.3s; }
-        .social-icons a:hover { color: #fff; }
+        .social-icons a { color: var(--secondary); font-size: 1.4rem; transition: 0.3s; }
+        .social-icons a:hover { color: #fff; transform: translateY(-3px); }
 
         .copyright { font-size: 0.65rem; color: var(--secondary); letter-spacing: 2px; text-transform: uppercase; opacity: 0.5; }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         @media (max-width: 900px) {
             .pro-footer { grid-template-columns: 1fr 1fr; }
             nav { top: 15px; right: 15px; left: 15px; justify-content: center; }
-            .nav-item { padding: 10px 18px; font-size: 0.6rem; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
         }
     </style>
 </head>
@@ -124,16 +121,21 @@
         </div>
     </nav>
 
-    <main>
-        <section id="home" style="display: flex;">
-            <div class="content-center">
-                <h1 class="hero-title" id="name"></h1>
-                <div class="sub-title" id="tagline"></div>
-            </div>
+    <main id="main-container"></main>
 
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+
+    <script>
+        // Reference to the profile.jpg uploaded to your repository
+        const myPhoto = "profile.jpg"; 
+
+        const footerHTML = `
             <footer class="pro-footer">
                 <div class="footer-col">
-                    <div class="footer-logo">KK</div>
+                    <div class="footer-brand">
+                        <img src="${myPhoto}" alt="Kaveesha" class="footer-photo" onerror="this.src='https://via.placeholder.com/50'">
+                        <div class="footer-logo">KK</div>
+                    </div>
                 </div>
                 <div class="footer-col">
                     <h4>Hello</h4>
@@ -148,53 +150,38 @@
                 </div>
                 <div class="footer-col">
                     <h4>Social</h4>
-                    <a href="#">LinkedIn</a>
-                    <a href="#">GitHub</a>
-                    <a href="#">Twitter</a>
+                    <a href="https://www.linkedin.com/in/kaveesha-karunarathna-knk/" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/Kaveesha-Karunarathna" target="_blank">GitHub</a>
+                    <a href="https://www.instagram.com/kaveesha_nimnadh/" target="_blank">Instagram</a>
                 </div>
                 <div class="footer-bottom">
                     <div class="copyright">© 2026 KAVEESHA KARUNARATHNA</div>
                     <div class="social-icons">
-                        <a href="#">LI</a>
-                        <a href="#">GH</a>
-                        <a href="#">TW</a>
+                        <a href="https://www.linkedin.com/in/kaveesha-karunarathna-knk/" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://github.com/Kaveesha-Karunarathna" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.instagram.com/kaveesha_nimnadh/" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
                     </div>
                 </div>
             </footer>
-        </section>
+        `;
 
-        <section id="about">
-            <div class="content-center">
-                <h1 class="hero-title">Vision</h1>
-                <div class="sub-title">Product Engineer (HAI) | Creative Technologist</div>
-            </div>
-            <footer class="pro-footer">
-                <div class="footer-bottom">
-                    <div class="copyright">© 2026 KAVEESHA KARUNARATHNA</div>
-                </div>
-            </footer>
-        </section>
+        const sections = [
+            { id: 'home', title: '<h1 class="hero-title" id="name"></h1><div class="sub-title" id="tagline"></div>' },
+            { id: 'about', title: '<h1 class="hero-title">Vision</h1><div class="sub-title">Product Engineer (HAI) | Creative Technologist</div>' },
+            { id: 'work', title: '<h1 class="hero-title">Selected Work</h1><div class="sub-title">Design Meets Intelligence</div>' },
+            { id: 'contact', title: '<h1 class="hero-title">Connect</h1>' },
+            { id: 'faq', title: '<h1 class="hero-title">FAQ</h1>' },
+            { id: 'notes', title: '<h1 class="hero-title">Notes</h1>' }
+        ];
 
-        <section id="work">
-            <div class="content-center">
-                <h1 class="hero-title">Selected Work</h1>
-                <div class="sub-title">Design Meets Intelligence</div>
-            </div>
-            <footer class="pro-footer">
-                <div class="footer-bottom">
-                    <div class="copyright">© 2026 KAVEESHA KARUNARATHNA</div>
-                </div>
-            </footer>
-        </section>
+        const container = document.getElementById('main-container');
+        sections.forEach(sec => {
+            const sectionNode = document.createElement('section');
+            sectionNode.id = sec.id;
+            sectionNode.innerHTML = `<div class="content-center">${sec.title}</div>` + footerHTML;
+            container.appendChild(sectionNode);
+        });
 
-        <section id="contact"><div class="content-center"><h1 class="hero-title">Connect</h1></div></section>
-        <section id="faq"><div class="content-center"><h1 class="hero-title">FAQ</h1></div></section>
-        <section id="notes"><div class="content-center"><h1 class="hero-title">Notes</h1></div></section>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-
-    <script>
         const moreBtn = document.getElementById('moreBtn');
         const moreDropdown = document.getElementById('moreDropdown');
         moreBtn.onclick = (e) => { e.stopPropagation(); moreDropdown.classList.toggle('show'); };
@@ -216,11 +203,13 @@
         const tagText = "Product Engineer (HAI) | Creative Technologist";
         let ni = 0, ti = 0;
         function type() {
-            if (ni < nameText.length) {
-                document.getElementById('name').innerHTML += nameText.charAt(ni++);
+            const nameEl = document.getElementById('name');
+            const tagEl = document.getElementById('tagline');
+            if (nameEl && ni < nameText.length) {
+                nameEl.innerHTML += nameText.charAt(ni++);
                 setTimeout(type, 80);
-            } else if (ti < tagText.length) {
-                document.getElementById('tagline').innerHTML += tagText.charAt(ti++);
+            } else if (tagEl && ti < tagText.length) {
+                tagEl.innerHTML += tagText.charAt(ti++);
                 setTimeout(type, 40);
             }
         }
