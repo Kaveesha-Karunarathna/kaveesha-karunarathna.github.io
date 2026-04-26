@@ -41,32 +41,40 @@
             z-index: 1;
         }
 
-        /* Navigation Glass Bar */
+        /* Updated Navigation: Top-Right Liquid Glass Pills */
         nav {
             position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px;
+            top: 20px;
+            right: 20px;
             display: flex;
-            justify-content: center;
-            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 10px;
             z-index: 100;
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: var(--glass-blur);
-            border-bottom: 1px solid var(--glass-border);
+            max-width: 90vw;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            padding: 10px 18px;
+            border-radius: 50px; /* Round cornered */
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
             opacity: 0.7;
-            transition: 0.3s;
         }
 
-        nav a:hover { opacity: 1; }
+        nav a:hover { 
+            opacity: 1; 
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
 
         /* Main Content Container */
         main {
@@ -153,6 +161,9 @@
         <a href="#home">Home</a>
         <a href="#about">About</a>
         <a href="#projects">Work</a>
+        <a href="#contact">Contact</a>
+        <a href="#faq">FAQ</a>
+        <a href="#notes">Notes</a>
     </nav>
 
     <main>
@@ -183,6 +194,27 @@
                         <p>Apple-inspired frosted glass interfaces for modern web.</p>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="glass-card">
+                <h2>Contact Me</h2>
+                <p>Looking to collaborate on agentic systems or high-performance interfaces? Let's connect.</p>
+            </div>
+        </section>
+
+        <section id="faq">
+            <div class="glass-card">
+                <h2>FAQ</h2>
+                <p>Questions about HAI engineering, creative technology, and shipping production-grade code.</p>
+            </div>
+        </section>
+
+        <section id="notes">
+            <div class="glass-card">
+                <h2>Notes</h2>
+                <p>Shared insights on the intersection of AI, design, and technical architecture.</p>
             </div>
         </section>
     </main>
