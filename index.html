@@ -307,19 +307,28 @@
                             <p>For business enquiries, <a href="mailto:kaveesha.media@gmail.com" style="color:#fff;">email me</a> or complete the form.<br><br>
                             Interested in AI, product engineering, or creative technology? Let's connect.</p>
                         </div>
-                        <form class="contact-form">
-                            <div class="form-group"><label class="field-label">My name is</label><input type="text" class="line-input" placeholder="Your name" required></div>
-                            <div class="form-group"><label class="field-label">My email is</label><input type="email" class="line-input" placeholder="Your email" required></div>
+                        <form class="contact-form" onsubmit="sendEmail(event)">
+                            <div class="form-group">
+                                <label class="field-label">My name is</label>
+                                <input type="text" id="sender-name" class="line-input" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="field-label">My email is</label>
+                                <input type="email" id="sender-email" class="line-input" placeholder="Your email" required>
+                            </div>
                             <div class="form-group">
                                 <label class="field-label">I'm looking for:</label>
                                 <div class="checkbox-grid">
-                                    <label class="checkbox-field"><input type="checkbox"> Product Engineering (HAI)</label>
-                                    <label class="checkbox-field"><input type="checkbox"> Rapid Prototyping & MVP Development</label>
-                                    <label class="checkbox-field"><input type="checkbox"> AI Strategy & Implementation</label>
-                                    <label class="checkbox-field"><input type="checkbox"> Creative Tech & Content Partnerships</label>
+                                    <label class="checkbox-field"><input type="checkbox" class="interest-check" value="Product Engineering (HAI)"> Product Engineering (HAI)</label>
+                                    <label class="checkbox-field"><input type="checkbox" class="interest-check" value="Rapid Prototyping"> Rapid Prototyping & MVP Development</label>
+                                    <label class="checkbox-field"><input type="checkbox" class="interest-check" value="AI Strategy"> AI Strategy & Implementation</label>
+                                    <label class="checkbox-field"><input type="checkbox" class="interest-check" value="Creative Tech"> Creative Tech & Content Partnerships</label>
                                 </div>
                             </div>
-                            <div class="form-group"><label class="field-label">Brief Summary</label><textarea class="line-input" placeholder="Your message" style="min-height: 80px;"></textarea></div>
+                            <div class="form-group">
+                                <label class="field-label">Brief Summary</label>
+                                <textarea id="sender-message" class="line-input" placeholder="Your message" style="min-height: 80px;"></textarea>
+                            </div>
                             <button type="submit" class="submit-btn">Get in touch</button>
                         </form>
                     </div>
@@ -377,6 +386,26 @@
                 modes: { grab: { distance: 140, links: { opacity: 0.1 } } }
             }
         });
+
+        // NEW FUNCTION: Handlers the Get in Touch button click
+        function sendEmail(event) {
+            event.preventDefault();
+            const name = document.getElementById('sender-name').value;
+            const email = document.getElementById('sender-email').value;
+            const message = document.getElementById('sender-message').value;
+            const interests = Array.from(document.querySelectorAll('.interest-check:checked'))
+                .map(cb => cb.value).join(", ");
+
+            const subject = encodeURIComponent(`Portfolio Inquiry from ${name}`);
+            const body = encodeURIComponent(
+                `Name: ${name}\n` +
+                `Email: ${email}\n` +
+                `Interests: ${interests || 'General'}\n\n` +
+                `Message:\n${message}`
+            );
+
+            window.location.href = `mailto:kaveesha.media@gmail.com?subject=${subject}&body=${body}`;
+        }
     </script>
 </body>
 </html>
