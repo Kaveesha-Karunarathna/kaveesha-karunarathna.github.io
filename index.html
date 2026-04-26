@@ -28,7 +28,8 @@
             background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
-            overflow: hidden; 
+            overflow-x: hidden;
+            overflow-y: auto; /* Enable scrolling within sections if needed */
         }
 
         #tsparticles {
@@ -38,6 +39,7 @@
             z-index: 1;
         }
 
+        /* Navigation */
         nav {
             position: fixed;
             top: 15px;
@@ -51,72 +53,72 @@
             background: var(--glass-bg); backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
             box-shadow: var(--glass-shadow); transition: 0.3s ease; cursor: pointer;
-            display: flex; align-items: center;
         }
-
-        .nav-item:hover { background: rgba(255, 255, 255, 0.1); }
+        .nav-item:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
 
         .dropdown { position: relative; }
         .dropdown-content {
             display: none; position: absolute; right: 0; top: 50px; min-width: 160px;
             background: rgba(10, 10, 10, 0.7); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
-            border-radius: 20px; overflow: hidden; box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden;
         }
         .dropdown-content.show { display: block; }
-        .dropdown-content a { color: white; padding: 14px 20px; text-decoration: none; display: block; font-size: 0.75rem; transition: 0.3s; }
-        .dropdown-content a:hover { background: rgba(255, 255, 255, 0.1); }
+        .dropdown-content a { color: white; padding: 14px 20px; text-decoration: none; display: block; font-size: 0.75rem; }
 
-        main { position: relative; z-index: 2; width: 100%; height: 100vh; display: flex; flex-direction: column; }
+        main { position: relative; z-index: 2; width: 100%; }
 
         section {
-            display: none; flex: 1; flex-direction: column; align-items: center;
-            justify-content: center; padding: 60px 20px; animation: fadeIn 0.6s ease-out forwards;
+            display: none; min-height: 100vh; flex-direction: column;
+            align-items: center; justify-content: center; padding: 100px 20px;
+            animation: fadeIn 0.8s ease-out forwards;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         .hero h1 {
-            font-size: 12vw; background: linear-gradient(135deg, #fff 0%, #888 100%);
+            font-size: 10vw; background: linear-gradient(135deg, #fff 0%, #888 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-align: center; line-height: 1.1;
         }
 
-        @media (min-width: 768px) { .hero h1 { font-size: 5rem; } nav { top: 25px; right: 25px; gap: 15px; } }
-
         .glass-card {
             background: var(--glass-bg); backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border);
-            border-radius: 32px; padding: 40px; max-width: 800px; width: 100%;
-            box-shadow: var(--glass-shadow); position: relative;
+            border: 1px solid var(--glass-border); border-radius: 32px;
+            padding: 40px; max-width: 800px; width: 100%;
+            box-shadow: var(--glass-shadow); margin-bottom: 50px;
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 30px; }
-        .project-box { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--glass-border); padding: 25px; border-radius: 24px; transition: 0.4s ease; }
-        .project-box:hover { transform: translateY(-8px); background: rgba(255, 255, 255, 0.08); }
-
-        .typewriter-container { font-size: 1rem; color: var(--text-secondary); margin-top: 20px; min-height: 1.5em; }
-        .cursor { animation: blink 0.8s infinite; font-weight: bold; }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        /* Liquid Glass Footer */
-        footer {
-            position: fixed; bottom: 0; width: 100%; z-index: 100;
-            padding: 20px 40px; background: var(--glass-bg);
-            backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
-            border-top: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 0.75rem; color: var(--text-secondary);
+        /* 3D Liquid Glass External Link Buttons */
+        .external-links {
+            display: flex; gap: 15px; margin-top: 30px; justify-content: center; flex-wrap: wrap;
         }
 
-        .footer-left { letter-spacing: 0.5px; }
-        .footer-right { display: flex; gap: 20px; }
-        .footer-right a { color: var(--text-primary); text-decoration: none; transition: 0.3s; opacity: 0.7; }
-        .footer-right a:hover { opacity: 1; color: #fff; }
-
-        @media (max-width: 600px) {
-            footer { flex-direction: column; gap: 10px; text-align: center; padding: 15px; }
+        .glass-btn {
+            text-decoration: none; color: #fff; font-size: 0.75rem; font-weight: 500;
+            padding: 12px 25px; border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 
+                inset 0 1px 1px rgba(255, 255, 255, 0.2),
+                0 10px 20px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+
+        .glass-btn:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Floating Copyright Style */
+        .copyright-tag {
+            margin-top: 60px; font-size: 0.65rem; color: var(--text-secondary);
+            text-transform: uppercase; letter-spacing: 2px; opacity: 0.6;
+        }
+
+        @media (min-width: 768px) { .hero h1 { font-size: 5rem; } }
     </style>
 </head>
 <body>
@@ -126,110 +128,96 @@
     <nav>
         <a href="#home" class="nav-item">Home</a>
         <a href="#about" class="nav-item">About</a>
-        <a href="#projects" class="nav-item">Work</a>
         <div class="dropdown">
             <div class="nav-item" id="moreBtn">More ▾</div>
             <div class="dropdown-content" id="moreDropdown">
-                <a href="#contact">Contact Me</a>
-                <a href="#faq">FAQ</a>
-                <a href="#notes">Notes</a>
+                <a href="#projects">Work</a>
+                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
 
     <main>
-        <section id="home" class="hero" style="display: flex;">
+        <section id="home" style="display: flex;">
             <h1 id="typed-name"></h1>
             <div class="typewriter-container">
                 <span id="typed-text"></span><span class="cursor">|</span>
             </div>
+            
+            <div class="external-links">
+                <a href="#" class="glass-btn">LinkedIn</a>
+                <a href="#" class="glass-btn">GitHub</a>
+                <a href="#" class="glass-btn">Twitter</a>
+            </div>
+
+            <div class="copyright-tag">© 2026 Kaveesha Karunarathna</div>
         </section>
 
         <section id="about">
             <div class="glass-card">
-                <h2>Hi!, I'm Kaveesha</h2>
-                <p>Product Engineer (HAI) & Creative Technologist. I architect the logic and build the interfaces where human intent meets AI.</p>
+                <h2>About Me</h2>
+                <p>Product Engineer (HAI) & Creative Technologist. Architecting logic where human intent meets AI.</p>
             </div>
+            
+            <div class="external-links">
+                <a href="#" class="glass-btn">View Resume</a>
+                <a href="#" class="glass-btn">Let's Talk</a>
+            </div>
+
+            <div class="copyright-tag">© 2026 Kaveesha Karunarathna</div>
         </section>
 
         <section id="projects">
-            <div class="glass-card">
-                <h2>Selected Work</h2>
-                <div class="grid">
-                    <div class="project-box"><h3>Interactive Space</h3><p>Starfield engine.</p></div>
-                    <div class="project-box"><h3>Liquid UI</h3><p>Frosted interfaces.</p></div>
-                </div>
-            </div>
+            <div class="glass-card"><h2>Work</h2><p>Coming Soon...</p></div>
+            <div class="copyright-tag">© 2026 Kaveesha Karunarathna</div>
         </section>
 
-        <section id="contact"><div class="glass-card"><h2>Contact</h2><p>Let's build together.</p></div></section>
-        <section id="faq"><div class="glass-card"><h2>FAQ</h2><p>Common inquiries.</p></div></section>
-        <section id="notes"><div class="glass-card"><h2>Notes</h2><p>Technical logs.</p></div></section>
-
-        <footer>
-            <div class="footer-left">
-                © 2026 Kaveesha Karunarathna | Built with code
-            </div>
-            <div class="footer-right">
-                <a href="#">LinkedIn</a>
-                <a href="#">Twitter</a>
-                <a href="#">GitHub</a>
-            </div>
-        </footer>
+        <section id="contact">
+            <div class="glass-card"><h2>Contact</h2><p>Contact Info Here</p></div>
+            <div class="copyright-tag">© 2026 Kaveesha Karunarathna</div>
+        </section>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
+        // UI Logic
         const moreBtn = document.getElementById('moreBtn');
         const moreDropdown = document.getElementById('moreDropdown');
-        moreBtn.addEventListener('click', (e) => { e.stopPropagation(); moreDropdown.classList.toggle('show'); });
-        document.addEventListener('click', () => { moreDropdown.classList.remove('show'); });
+        moreBtn.onclick = (e) => { e.stopPropagation(); moreDropdown.classList.toggle('show'); };
+        window.onclick = () => moreDropdown.classList.remove('show');
 
+        // SPA Routing
         function handleRoute() {
             const hash = window.location.hash || '#home';
-            const sections = document.querySelectorAll('main section');
-            sections.forEach(sec => sec.style.display = 'none');
-            const activeSection = document.querySelector(hash);
-            if (activeSection) { activeSection.style.display = 'flex'; }
+            document.querySelectorAll('main section').forEach(sec => sec.style.display = 'none');
+            const target = document.querySelector(hash);
+            if (target) target.style.display = 'flex';
+            window.scrollTo(0,0);
         }
-
         window.addEventListener('hashchange', handleRoute);
         window.addEventListener('load', handleRoute);
 
+        // Typewriter
         document.addEventListener("DOMContentLoaded", () => {
-            const nameToType = "KAVEESHA KARUNARATHNA";
-            const sublineToType = "Product Engineer (HAI) | Creative Technologist";
-            const nameElement = document.getElementById("typed-name");
-            const sublineElement = document.getElementById("typed-text");
-            let nIndex = 0, sIndex = 0;
-            function typeName() {
-                if (nIndex < nameToType.length) {
-                    nameElement.innerHTML += nameToType.charAt(nIndex);
-                    nIndex++; setTimeout(typeName, 80);
-                } else { setTimeout(typeSubline, 500); }
-            }
-            function typeSubline() {
-                if (sIndex < sublineToType.length) {
-                    sublineElement.innerHTML += sublineToType.charAt(sIndex);
-                    sIndex++; setTimeout(typeSubline, 50);
-                }
-            }
-            typeName();
+            const name = "KAVEESHA KARUNARATHNA";
+            const sub = "Product Engineer (HAI) | Creative Technologist";
+            const nEl = document.getElementById("typed-name");
+            const sEl = document.getElementById("typed-text");
+            let ni = 0, si = 0;
+            function tN() { if(ni < name.length) { nEl.innerHTML += name.charAt(ni++); setTimeout(tN, 80); } else { setTimeout(tS, 500); } }
+            function tS() { if(si < sub.length) { sEl.innerHTML += sub.charAt(si++); setTimeout(tS, 50); } }
+            tN();
         });
 
+        // Particles
         tsParticles.load("tsparticles", {
-            fpsLimit: 60, background: { color: "#000000" },
-            particles: {
-                number: { value: 140, density: { enable: true, area: 800 } },
-                color: { value: "#ffffff" }, shape: { type: "circle" },
-                opacity: { value: { min: 0.1, max: 0.6 } }, size: { value: { min: 1, max: 3 } },
-                move: { enable: true, speed: 0.5, outModes: { default: "out" } }
+            fpsLimit: 60, particles: {
+                number: { value: 100 }, color: { value: "#ffffff" },
+                opacity: { value: 0.4 }, size: { value: 2 },
+                move: { enable: true, speed: 0.6 }
             },
-            interactivity: {
-                events: { onHover: { enable: true, mode: "repulse" }, resize: true },
-                modes: { repulse: { distance: 120, duration: 0.4 } }
-            }
+            interactivity: { events: { onHover: { enable: true, mode: "repulse" } } }
         });
     </script>
 </body>
