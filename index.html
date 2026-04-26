@@ -88,7 +88,6 @@
             box-shadow: var(--glass-shadow);
         }
         
-        /* Show when active class is added via JS */
         .dropdown-content.show { display: block; }
 
         .dropdown-content a {
@@ -168,14 +167,14 @@
 
     <nav>
         <a href="#home" class="nav-item">Home</a>
-        <a href="#about" class="nav-item">About</a>
+        <a href="about.html" target="_blank" class="nav-item">About</a>
         <a href="#projects" class="nav-item">Work</a>
         <div class="dropdown">
             <div class="nav-item" id="moreBtn">More ▾</div>
             <div class="dropdown-content" id="moreDropdown">
-                <a href="#contact">Contact Me</a>
-                <a href="#faq">FAQ</a>
-                <a href="#notes">Notes</a>
+                <a href="contact.html" target="_blank">Contact Me</a>
+                <a href="faq.html" target="_blank">FAQ</a>
+                <a href="notes.html" target="_blank">Notes</a>
             </div>
         </div>
     </nav>
@@ -213,7 +212,6 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
-        // TOGGLE DROPDOWN ON CLICK
         const moreBtn = document.getElementById('moreBtn');
         const moreDropdown = document.getElementById('moreDropdown');
 
@@ -226,7 +224,6 @@
             moreDropdown.classList.remove('show');
         });
 
-        // TYPEWRITER
         document.addEventListener("DOMContentLoaded", () => {
             const nameToType = "KAVEESHA KARUNARATHNA";
             const sublineToType = "Product Engineer (HAI) | Creative Technologist";
@@ -251,7 +248,6 @@
             typeName();
         });
 
-        // PARTICLES: REPULSE MODE (Clearing the road)
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
             background: { color: "#000000" },
@@ -269,17 +265,11 @@
             },
             interactivity: {
                 events: {
-                    onHover: { 
-                        enable: true, 
-                        mode: "repulse" // Push particles away
-                    },
+                    onHover: { enable: true, mode: "repulse" },
                     resize: true
                 },
                 modes: {
-                    repulse: {
-                        distance: 120, // Distance to push away
-                        duration: 0.4
-                    }
+                    repulse: { distance: 120, duration: 0.4 }
                 }
             }
         });
