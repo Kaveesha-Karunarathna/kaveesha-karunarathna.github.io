@@ -55,26 +55,33 @@
         /* --- MAIN LAYOUT --- */
         main { position: relative; z-index: 1; width: 100%; }
         section {
-            display: none; min-height: 160vh; flex-direction: column; 
+            display: none; min-height: 100vh; flex-direction: column; 
             align-items: center; justify-content: flex-start;
-            padding: 30vh 20px 10vh; animation: sectionFade 1s ease;
+            padding: 20vh 20px 10vh; animation: sectionFade 1s ease;
         }
 
         @keyframes sectionFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .content-center { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .content-center { flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 900px; margin: 0 auto; }
         .hero-title { font-size: clamp(2.5rem, 8vw, 5.5rem); font-weight: 800; letter-spacing: -3px; text-align: center; margin-bottom: 20px; line-height: 1; }
         .sub-title { font-size: 1.1rem; color: var(--secondary); text-align: center; }
+
+        /* --- ABOUT CONTENT STYLES --- */
+        .about-container { display: flex; flex-direction: column; align-items: center; gap: 40px; text-align: center; margin-top: 20px; }
+        .about-photo { width: 180px; height: 180px; border-radius: 30px; object-fit: cover; border: 1px solid var(--border); box-shadow: var(--shadow); }
+        .about-text { font-size: 1.1rem; line-height: 1.7; color: var(--secondary); max-width: 700px; }
+        .about-text strong { color: var(--primary); font-weight: 600; }
+        .about-tagline { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 4px; color: var(--primary); margin-top: 20px; opacity: 0.8; }
 
         /* --- PROFESSIONAL FOOTER --- */
         .pro-footer {
             width: 100%; max-width: 1100px; padding: 80px 40px 40px;
-            margin-top: 50vh; border-top: 1px solid var(--border);
+            margin-top: 20vh; border-top: 1px solid var(--border);
             display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
         }
 
         .footer-brand { display: flex; align-items: center; gap: 15px; }
-        .footer-photo {
+        .footer-photo-small {
             width: 50px; height: 50px; border-radius: 50%; 
             object-fit: cover; border: 1px solid var(--border);
             background: #222;
@@ -126,14 +133,13 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
-        // Reference to the profile.jpg uploaded to your repository
         const myPhoto = "profile.jpg"; 
 
         const footerHTML = `
             <footer class="pro-footer">
                 <div class="footer-col">
                     <div class="footer-brand">
-                        <img src="${myPhoto}" alt="Kaveesha" class="footer-photo" onerror="this.src='https://via.placeholder.com/50'">
+                        <img src="${myPhoto}" alt="Kaveesha" class="footer-photo-small" onerror="this.src='https://via.placeholder.com/50'">
                         <div class="footer-logo">KK</div>
                     </div>
                 </div>
@@ -167,7 +173,21 @@
 
         const sections = [
             { id: 'home', title: '<h1 class="hero-title" id="name"></h1><div class="sub-title" id="tagline"></div>' },
-            { id: 'about', title: '<h1 class="hero-title">Vision</h1><div class="sub-title">Product Engineer (HAI) | Creative Technologist</div>' },
+            { 
+                id: 'about', 
+                title: `
+                    <div class="about-container">
+                        <img src="${myPhoto}" alt="Kaveesha Karunarathna" class="about-photo" onerror="this.style.display='none'">
+                        <h1 class="hero-title">About</h1>
+                        <div class="about-text">
+                            Hey! I’m <strong>Kaveesha Karunarathna</strong>, a Product Engineer (HAI) and Creative Technologist.<br><br>
+                            I bridge the gap between human intuition and machine intelligence by architecting logic-driven digital environments. Currently, I am a BIT Undergraduate at the <strong>University of Moratuwa</strong>, where I combine technical rigor with a high-performance mindset to build interfaces that don't just look clean—they think.<br><br>
+                            As a former Senior Prefect and President of the Astronomical Society, I lead with an analytical mindset. My goal is simple: to engineer seamless AI interactions and creative tech that solves real problems.
+                        </div>
+                        <div class="about-tagline">Design Logic. Build Intelligence. Ship Outcomes.</div>
+                    </div>
+                `
+            },
             { id: 'work', title: '<h1 class="hero-title">Selected Work</h1><div class="sub-title">Design Meets Intelligence</div>' },
             { id: 'contact', title: '<h1 class="hero-title">Connect</h1>' },
             { id: 'faq', title: '<h1 class="hero-title">FAQ</h1>' },
