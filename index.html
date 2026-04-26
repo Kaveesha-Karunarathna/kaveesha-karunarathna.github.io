@@ -11,76 +11,89 @@
             --bg-color: #000000;
             --text-primary: #FFFFFF;
             --text-secondary: #AAAAAA;
-            /* Apple Liquid Glass Effect */
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.12);
-            --glass-blur: blur(20px);
+            /* 3D Liquid Glass Variables */
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-blur: blur(25px);
+            --glass-shadow: inset 0 0 15px rgba(255,255,255,0.05), 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        * { box-sizing: border-box; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body, html {
-            margin: 0;
-            padding: 0;
             width: 100%;
+            height: 100%;
             background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
             color: var(--text-primary);
             scroll-behavior: smooth;
-            /* Back to original standard cursor */
+            overflow-x: hidden;
             cursor: auto; 
         }
 
-        /* Particles stay fixed in the background while scrolling */
         #tsparticles {
             position: fixed;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
             z-index: 1;
         }
 
-        /* Updated Navigation: Top-Right Liquid Glass Pills */
+        /* Responsive Navigation */
         nav {
             position: fixed;
-            top: 20px;
-            right: 20px;
+            top: 15px;
+            right: 15px;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-end;
             gap: 10px;
             z-index: 100;
-            max-width: 90vw;
         }
 
-        nav a {
-            color: white;
+        .nav-item {
             text-decoration: none;
+            color: white;
             font-size: 0.7rem;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             padding: 10px 18px;
-            border-radius: 50px; /* Round cornered */
+            border-radius: 50px;
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
             -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
-            transition: all 0.3s ease;
-            opacity: 0.7;
+            box-shadow: var(--glass-shadow);
+            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
         }
 
-        nav a:hover { 
-            opacity: 1; 
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
+        /* Dropdown Logic */
+        .dropdown { position: relative; display: inline-block; }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 45px;
+            min-width: 140px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
         }
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            font-size: 0.7rem;
+            transition: 0.3s;
+        }
+        .dropdown-content a:hover { background: rgba(255,255,255,0.1); }
+        .dropdown:hover .dropdown-content { display: block; }
+        .dropdown:hover .nav-item { background: rgba(255,255,255,0.15); }
 
-        /* Main Content Container */
-        main {
-            position: relative;
-            z-index: 2; /* Sits above particles */
-        }
+        main { position: relative; z-index: 2; width: 100%; }
 
         section {
             min-height: 100vh;
@@ -88,69 +101,76 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 100px 20px;
+            padding: 40px 20px;
         }
 
-        /* Hero Text */
+        /* Mobile Responsive Hero */
         .hero h1 {
-            font-size: 8vw;
-            margin: 0;
+            font-size: 10vw; 
             background: linear-gradient(135deg, #fff 0%, #888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-align: center;
+            line-height: 1.1;
+        }
+        .typewriter-container {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 15px;
+            text-align: center;
+            max-width: 80%;
         }
 
-        @media (min-width: 1024px) { .hero h1 { font-size: 4rem; } }
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .typewriter-container { font-size: 1.2rem; }
+            nav { top: 25px; right: 25px; gap: 15px; }
+        }
 
-        /* Liquid Glass Card Style (Apple Style) */
+        /* 3D Liquid Glass Card */
         .glass-card {
             background: var(--glass-bg);
             backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur); /* Safari Support */
+            -webkit-backdrop-filter: var(--glass-blur);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            padding: 40px;
+            border-radius: 28px;
+            padding: 30px;
             max-width: 800px;
             width: 100%;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-            text-align: left;
+            box-shadow: var(--glass-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        /* Glossy Highlight Effect */
+        .glass-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 50%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
         }
 
-        h2 { font-size: 2.5rem; margin-top: 0; letter-spacing: -1px; }
-        p { line-height: 1.7; color: var(--text-secondary); font-size: 1.1rem; }
+        h2 { font-size: 1.8rem; margin-bottom: 15px; }
+        p { line-height: 1.6; color: var(--text-secondary); font-size: 1rem; }
 
-        .typewriter-container {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-top: 10px;
-            text-align: center;
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
         }
+        .project-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 20px;
+            transition: 0.3s ease;
+        }
+        .project-box:hover { transform: translateY(-5px); background: rgba(255,255,255,0.08); }
 
         .cursor { animation: blink 0.8s infinite; font-weight: bold; }
         @keyframes blink { 50% { opacity: 0; } }
 
-        /* Project Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        .project-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--glass-border);
-            padding: 25px;
-            border-radius: 18px;
-            transition: 0.4s ease;
-        }
-
-        .project-box:hover {
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-5px);
-        }
     </style>
 </head>
 <body>
@@ -158,12 +178,17 @@
     <div id="tsparticles"></div>
 
     <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#projects">Work</a>
-        <a href="#contact">Contact</a>
-        <a href="#faq">FAQ</a>
-        <a href="#notes">Notes</a>
+        <a href="#home" class="nav-item">Home</a>
+        <a href="#about" class="nav-item">About</a>
+        <a href="#projects" class="nav-item">Work</a>
+        <div class="dropdown">
+            <div class="nav-item">More ▾</div>
+            <div class="dropdown-content">
+                <a href="#contact">Contact Me</a>
+                <a href="#faq">FAQ</a>
+                <a href="#notes">Notes</a>
+            </div>
+        </div>
     </nav>
 
     <main>
@@ -176,22 +201,22 @@
 
         <section id="about">
             <div class="glass-card">
-                <h2>Hi!, I'm Kaveesha Karunarathna</h2>
-                <p>Product Engineer (HAI) & Creative Technologist. I architect the logic and build the interfaces where human intent meets AI. Focused on shipping high-performance, agentic environments that bridge the gap between design and production code.</p>
+                <h2>Hi!, I'm Kaveesha</h2>
+                <p>Product Engineer (HAI) & Creative Technologist. I architect the logic and build the interfaces where human intent meets AI. Focused on shipping high-performance, agentic environments.</p>
             </div>
         </section>
 
         <section id="projects">
             <div class="glass-card">
-                <h2>Selected Work</h2>
+                <h2>Work</h2>
                 <div class="grid">
                     <div class="project-box">
                         <h3>Interactive Space</h3>
-                        <p>A starfield engine using Canvas and hardware sensors.</p>
+                        <p>Starfield engine using Canvas API.</p>
                     </div>
                     <div class="project-box">
-                        <h3>Fluid UI</h3>
-                        <p>Apple-inspired frosted glass interfaces for modern web.</p>
+                        <h3>Liquid UI</h3>
+                        <p>Realistic frosted glass interfaces.</p>
                     </div>
                 </div>
             </div>
@@ -199,22 +224,22 @@
 
         <section id="contact">
             <div class="glass-card">
-                <h2>Contact Me</h2>
-                <p>Looking to collaborate on agentic systems or high-performance interfaces? Let's connect.</p>
+                <h2>Contact</h2>
+                <p>Collaborate on agentic systems or high-performance interfaces. Connect with me.</p>
             </div>
         </section>
 
         <section id="faq">
             <div class="glass-card">
                 <h2>FAQ</h2>
-                <p>Questions about HAI engineering, creative technology, and shipping production-grade code.</p>
+                <p>Common questions regarding HAI engineering and creative tech production.</p>
             </div>
         </section>
 
         <section id="notes">
             <div class="glass-card">
                 <h2>Notes</h2>
-                <p>Shared insights on the intersection of AI, design, and technical architecture.</p>
+                <p>Insights on the intersection of AI architecture and modern design.</p>
             </div>
         </section>
     </main>
@@ -222,7 +247,6 @@
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
     <script>
-        // TYPEWRITER EFFECT
         document.addEventListener("DOMContentLoaded", () => {
             const nameToType = "KAVEESHA KARUNARATHNA";
             const sublineToType = "Product Engineer (HAI) | Creative Technologist";
@@ -247,7 +271,6 @@
             typeName();
         });
 
-        // ORIGINAL PARTICLES + GYROSCOPE
         tsParticles.load("tsparticles", {
             fpsLimit: 60,
             background: { color: "#000000" },
@@ -271,18 +294,10 @@
                     resize: true
                 },
                 modes: {
-                    grab: {
-                        distance: 180,
-                        links: { opacity: 0.4 }
-                    }
+                    grab: { distance: 180, links: { opacity: 0.4 } }
                 }
             },
-            sensors: {
-                deviceOrientation: {
-                    enable: true,
-                    value: 10 
-                }
-            }
+            sensors: { deviceOrientation: { enable: true, value: 10 } }
         });
     </script>
 </body>
